@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isti Tiandini — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg-main: #0B0F19;
+    --bg-surface: #131A2C;
+    --bg-card: #1E293B;
+    --border: #334155;
+    --border-focus: #38BDF8;
+    
+    --text-primary: #F8FAFC;
+    --text-muted: #94A3B8;
+    
+    --accent: #38BDF8;
+    --accent-glow: rgba(56, 189, 248, 0.15);
+    --accent-success: #4ADE80;
+    --accent-success-glow: rgba(74, 222, 128, 0.1);
+    
+    --font-sans: 'Plus Jakarta Sans', sans-serif;      
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { 
+    font-family: var(--font-sans); 
+    background-color: var(--bg-main); 
+    color: var(--text-primary); 
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* CUSTOM SCROLLBAR */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg-main); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+  /* STICKY HEADER MATRIX */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11, 15, 25, 0.8); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem; height: 65px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: var(--font-mono); font-size: 0.95rem; color: var(--accent); font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+  .nav-logo::before { content: '$'; color: var(--accent-success); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-mono); font-weight: 500; transition: all 0.2s; }
+  .nav-links a:hover { color: var(--accent); text-shadow: 0 0 8px var(--accent-glow); }
+
+  /* SECTIONS SETUP */
+  section { padding: 6rem 2rem; max-width: 1000px; margin: 0 auto; }
+
+  /* HERO TERMINAL LAYOUT */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 80px; }
+  .terminal-window { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .terminal-header { display: flex; gap: 6px; position: absolute; top: 16px; left: 20px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #EF4444; }
+  .dot:nth-child(2) { background: #F59E0B; }
+  .dot:nth-child(3) { background: #10B981; }
+  
+  .hero-eyebrow { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-success); margin-bottom: 1rem; display: block; }
+  .hero-name { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.03em; color: #fff; }
+  .hero-tagline { font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent); margin-bottom: 1.5rem; }
+  .cursor { display: inline-block; width: 8px; height: 1.2em; background: var(--accent-success); margin-left: 4px; animation: blink 1s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  
+  .hero-desc { font-size: 1rem; color: var(--text-muted); max-width: 640px; margin-bottom: 2.5rem; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  
+  .btn { padding: 0.8rem 1.75rem; border-radius: 6px; font-size: 0.875rem; font-family: var(--font-mono); font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;}
+  .btn-primary { background: var(--accent); color: var(--bg-main); border: 1px solid var(--accent); box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3); }
+  .btn-primary:hover { background: #7DD3FC; transform: translateY(-1px); }
+  .btn-outline { border: 1px solid var(--border); color: var(--text-primary); background: transparent; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(56, 189, 248, 0.04); }
+  
+  .hero-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  .badge { padding: 0.3rem 0.75rem; border-radius: 4px; font-size: 0.75rem; background: rgba(56, 189, 248, 0.06); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.2); font-family: var(--font-mono); }
+
+  /* SECTION HEADERS */
+  .section-header { margin-bottom: 1.5rem; position: relative; }
+  .section-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-success); text-transform: uppercase; margin-bottom: 0.25rem; display: block; }
+  .section-title { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+  .section-divider { width: 45px; height: 3px; background: var(--accent-success); border-radius: 2px; }
+
+  /* ABOUT / BACKSTAGE GRID */
+  #about-wrapper { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-inner { display: flex; flex-direction: column; width: 100%; gap: 3rem; }
+  .about-text p { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 0.95rem; }
+  
+  .about-right { display: grid; grid-template-columns: repeat(4, 1fr) !important; gap: 1.25rem; width: 100%; }
+  .stat-item-with-icon { position: relative; padding-top: 20px; }
+  .popout-icon-container { position: absolute; top: -5px; left: -8px; z-index: 10; }
+  .stat-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: visible !important; height: 100%; }
+  .stat-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent-success); }
+  .stat-num { font-size: 1.35rem; font-weight: 700; color: #fff; font-family: var(--font-mono); }
+  .stat-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem; font-family: var(--font-mono); text-transform: uppercase; }
+
+  /* BIAR TETAP RAPI SAAT DIBUKA DI HP */
+  @media (max-width: 768px) { .about-right { grid-template-columns: repeat(2, 1fr) !important; }}
+
+  /* PROJECTS VISUAL GRID LAYOUT (REFERENCE MODEL) */
+  .projects-category { margin-bottom: 3.5rem; }
+  .category-title { font-size: 1.25rem; font-weight: 700; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); }
+  .category-title::before { content: '//'; color: var(--accent-success); }
+
+  .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.75rem; }
+  
+  .grid-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.3s ease; cursor: pointer; display: flex; flex-direction: column; }
+  .grid-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); }
+
+  .card-image-box { width: 100%; height: 180px; background-color: var(--bg-main); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .card-image-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .grid-card:hover .card-image-box img { transform: scale(1.05); }
+
+  .card-body { padding: 1.25rem; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+  .card-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; }
+  .card-subtitle { font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); }
+  
+  .card-tags { display: flex; justify-content: center; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.8rem; }
+  .mini-tag { font-size: 0.68rem; padding: 0.15rem 0.4rem; border-radius: 4px; background: var(--bg-main); color: var(--accent); border: 1px solid var(--border); font-family: var(--font-mono); }
+
+  /* COMPACT GRID DATA (CERTIFICATIONS) */
+  #certs-wrapper { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .cert-group { margin-bottom: 3rem; }
+  .cert-group:last-child { margin-bottom: 0; }
+  .cert-group-title { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  
+  .cert-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 0.75rem; }
+  @media (max-width: 900px) { .cert-list { grid-template-columns: 1fr; } }
+  
+  .cert-item { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1.25rem; background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem; transition: all 0.2s; }
+  .cert-item.clickable { cursor: pointer; }
+  .cert-item.clickable:hover { border-color: var(--border-focus); background: rgba(56, 189, 248, 0.02); }
+  
+  .cert-title-container { display: flex; align-items: center; gap: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 1rem;}
+  .cert-status { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-success); flex-shrink: 0; box-shadow: 0 0 8px var(--accent-success); }
+  .cert-name { color: var(--text-primary); font-weight: 500; transition: color 0.2s; }
+  .cert-item.clickable:hover .cert-name { color: var(--accent); }
+  
+  .cert-meta-container { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; font-family: var(--font-mono); font-size: 0.75rem; }
+  .cert-year { color: var(--text-muted); }
+  .cert-view-icon { color: var(--accent-success); font-weight: bold; }
+
+  /* SKILLS MATRIX */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.5rem; }
+  .skill-chip { padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); background: var(--bg-surface); text-align: center; transition: all 0.2s; }
+  .skill-chip:hover { border-color: var(--accent-success); color: #fff; background: rgba(74, 222, 128, 0.03); }
+
+  /* CONTACT COMPONENT */
+  .contact-card { background: radial-gradient(100% 100% at 0% 0%, #1E293B 0%, #131A2C 100%); border: 1px solid var(--border); border-radius: 12px; padding: 3.5rem 2rem; text-align: center; }
+  .contact-card h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .contact-card p { color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem; }
+  .contact-links { display: flex; justify-content: center; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+  .contact-link { width: 100px; height: 105px; padding: 1.25rem 0.75rem 1rem; border-radius: 10px; background: var(--bg-main); color: #fff; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; border: 1px solid var(--border); transition: all 0.2s; display: inline-flex; flex-direction: column; align-items: center; justify-content: space-between; }
+  .contact-link svg { width: 32px; height: 32px; fill: currentColor; flex-shrink: 0; }
+  .contact-link span { display: block; text-align: center; line-height: 1; margin-top: auto; }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 15px rgba(56, 189, 248, 0.15); }
+
+  /* MODAL PREVIEW */
+  .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(7, 10, 17, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1.5rem; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 900px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); }
+  .modal-body-content { padding: 2rem; background: var(--bg-main); max-height: 85vh; overflow-y: auto; }
+  .modal-project-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: start; }
+  .modal-project-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
+  .modal-project-desc p { margin-bottom: 0.85rem; text-align: justify; }
+  .modal-project-desc ul {  margin-left: 1.2rem; margin-bottom: 1rem; }
+  .modal-project-desc li { margin-bottom: 0.5rem; }
+  .modal-project-desc strong { color: var(--text-primary); }
+  .modal-img-wrapper { width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-surface); }
+  .modal-img-wrapper img { width: 100%; height: auto; display: block; object-fit: cover; }
+  .modal-action-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+  .modal-action-btns .btn { padding: 0.65rem 1.25rem; font-size: 0.82rem; }
+  @media (max-width: 768px) { .modal-project-layout { grid-template-columns: 1fr; gap: 1.5rem; }}
+  .modal-project-title { font-family: var(--font-heading); font-size: 1.6rem; color: #fff; margin-bottom: 1rem; line-height: 1.2; }
+  .modal-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg-main); }
+  .modal-title { font-family: var(--font-mono); font-weight: 500; font-size: 0.85rem; color: var(--text-muted); }
+  .modal-close { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--border); background: transparent; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .modal-close:hover { border-color: #EF4444; color: #EF4444; }
+  .modal-body { flex: 1; background: var(--bg-main); overflow: hidden; }
+  .modal-body iframe { width: 100%; height: 100%; min-height: 550px; border: none; display: block; }
+  .no-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 350px; color: var(--text-muted); gap: 1rem; text-align: center; padding: 2rem; }
+  .no-preview .icon { font-size: 2.5rem; color: var(--accent); }
+  .no-preview p { font-size: 0.875rem; font-family: var(--font-mono); }
+  .no-preview code { background: var(--bg-card); padding: 0.2rem 0.5rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-success); border: 1px solid var(--border); }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 2.5rem; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); border-top: 1px solid var(--border); background: var(--bg-main); }
+
+  @media (max-width: 768px) {
+    .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nav-links { display: none; }
+    nav { padding: 0 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .terminal-window { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class=>portfolio.isti</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div style="padding: 0 1.5rem;">
+  <section id="hero">
+    <div class="terminal-window">
+      <div class="terminal-header"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <span class="hero-eyebrow">Web Developer | IoT Developer</span>
+      <h1 class="hero-name">Isti Tiandini</h1>
+      <div class="hero-tagline">&gt; <span id="typed"></span><span class="cursor"></span></div>
+      <p class="hero-desc">Fresh graduate in Internet Engineering Technology from Universitas Gadjah Mada. Passionate about building end-to-end digital solutions — from clean UI/UX designs and responsive web applications to smart IoT architectures.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="mailto:isti.tiandinii@gmail.com" class="btn btn-outline">connect</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ABOUT ME -->
+<div id="about-wrapper">
+  <section id="about">
+    <div class="about-inner">
+      
+      <!-- PROFILE -->
+      <div class="about-text">
+        <div class="section-header">
+          <h2 class="section-title">About Me</h2>
+        </div>
+        <p style="text-align: justify;">Hello! I am Isti Tiandini, a fresh graduate with a Bachelor of Applied Science in Internet Engineering Technology from Universitas Gadjah Mada (GPA 3.55).</p>
+        <p style="text-align: justify;">I specialize in Web Development, IoT Systems, and UI/UX Design. I have hands-on experience building and managing production-ready websites using HTML, CSS, JavaScript, and WordPress (Elementor & Divi), backed by a solid understanding of web architecture and technical troubleshooting.</p>
+        <p style="text-align: justify;">Beyond web development, I design end-to-end smart IoT systems—such as DragonLight, a remote control and energy-monitoring solution integrating ESP32, Firebase, and real-time sensor analytics. I am also proficient in Figma, crafting clean, user-centric mobile UI and web dashboards through structured user flows, data visualization, and interactive prototyping.</p>
+      </div>
+
+      <!-- 4 KOTAK DI BAWAH TEKS -->
+      <div class="about-right">
+
+        <!-- 1. GPA -->
+        <div class="stat-item-with-icon">
+          <div class="popout-icon-container">
+            <img src="image/gpa-hat.png" alt="Graduation Cap" class="popout-icon" style="width: 45px; height: auto;">
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">3.55</div>
+            <div class="stat-label">GPA at UGM</div>
+          </div>
+        </div>
+
+        <!-- 2. WEB DEV -->
+        <div class="stat-item-with-icon">
+          <div class="popout-icon-container">
+            <img src="image/web-dev.png" alt="Web Dev Icon" class="popout-icon" style="width: 45px; height: auto;">
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">WEB</div>
+            <div class="stat-label">DEVELOPMENT</div>
+          </div>
+        </div>
+
+        <!-- 3. IOT -->
+        <div class="stat-item-with-icon">
+          <div class="popout-icon-container">
+            <img src="image/iot-systems.png" alt="IoT Icon" class="popout-icon" style="width: 45px; height: auto;">
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">IoT</div>
+            <div class="stat-label">SYSTEM</div>
+          </div>
+        </div>
+
+        <!-- 4. UI/UX -->
+        <div class="stat-item-with-icon">
+          <div class="popout-icon-container">
+            <img src="image/uiux-design.png" alt="UI/UX Icon" class="popout-icon" style="width: 45px; height: auto;">
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">UI/UX</div>
+            <div class="stat-label">DESIGN</div>
+          </div>
+        </div>
+
+      </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FEATURED PROJECTS (VISUAL GRID) -->
+<div style="padding: 0 1.5rem;">
+  <section id="projects">
+    <div class="section-header">
+      <h2 class="section-title">Projects</h2>
+    </div>
+
+    <!-- WEB DEVELOPMENT -->
+    <div class="projects-category">
+      <h3 class="category-title">Website</h3>
+      <div class="grid-container">
+
+        <!-- Sport-On -->
+        <div class="grid-card" onclick="openModal(
+          'SPORT-ON', 
+          'image/sport-on-big.png', 
+          `
+          <p>Pengembangan aplikasi web e-commerce <strong>Sport-On</strong> yang dibangun secara mandiri menggunakan bahasa pemrograman TypeScript (Program bootcamp Web Programming Plan Indonesia). Proyek ini mendemonstrasikan pemahaman teknis saya terhadap arsitektur dasar pengembangan website modern secara murni.</p>
+          <p>Fokus pengembangan teknis meliputi:</p>
+          <ul>
+            <li><strong>Front-End Development:</strong> Membangun antarmuka pengguna (UI) yang dinamis dan interaktif menggunakan TypeScript.</li>
+            <li><strong>Alur Fungsionalitas:</strong> Merancang struktur halaman multi-fungsi yang mencakup Beranda (Home), navigasi Katalog Produk, hingga fitur fungsional interaktif untuk Menambahkan Produk.</li>
+            <li><strong>Logika Transaksi:</strong> Mengimplementasikan simulasi alur checkout dan transaksi e-commerce untuk memperkuat pemahaman mengenai interaksi dan alur data pada sebuah situs web komersial.</li>
+          </ul>`, 
+          'https://sporton-fe-vercel-deploy-3fmq.vercel.app', 
+        )">
+          <div class="card-image-box">
+            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://via.placeholder.com/400x250/131A2C/38BDF8?text=Sport-On'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Sport-On</h4>
+            <p class="card-subtitle">Web E-Commerce Sport Shop</p>
+            <div class="card-tags">
+              <span class="mini-tag">TypeScript</span>
+              <span class="mini-tag">React</span>
+              <span class="mini-tag">HTML</span>
+              <span class="mini-tag">CSS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Web 1: Nasgor Station -->
+        <div class="grid-card" onclick="openModal('Nasgor Station — Route Finder', 'docs/nasgor-station.pdf')">
+          <div class="card-image-box">
+            <img src="images/nasgor-station.jpg" alt="Nasgor Station" onerror="this.src='https://via.placeholder.com/400x250/131A2C/38BDF8?text=Nasgor+Station'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Nasgor Station</h4>
+            <p class="card-subtitle">Culinary Route Finder & Local Food Mapping</p>
+            <div class="card-tags">
+              <span class="mini-tag">TypeScript</span>
+              <span class="mini-tag">Next.js</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Web 2: PDPGuard -->
+        <div class="grid-card" onclick="openModal('PDPGuard — Project Report', 'docs/pdpguard-report.pdf')">
+          <div class="card-image-box">
+            <img src="images/pdpguard.jpg" alt="PDPGuard" onerror="this.src='https://via.placeholder.com/400x250/131A2C/38BDF8?text=PDPGuard+Platform'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">PDPGuard Platform</h4>
+            <p class="card-subtitle">Automated API Security Assessment</p>
+            <div class="card-tags">
+              <span class="mini-tag">Python</span>
+              <span class="mini-tag">Flask</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- KATEGORI 2: IOT & SMART SYSTEMS -->
+    <div class="projects-category">
+      <h3 class="category-title">IoT & Smart Systems</h3>
+      <div class="grid-container">
+
+        <!-- Card IoT 1: DragonLight -->
+        <div class="grid-card" onclick="openModal('DragonLight — Final Report', 'docs/dragonlight.pdf')">
+          <div class="card-image-box">
+            <img src="images/dragonlight.jpg" alt="DragonLight" onerror="this.src='https://via.placeholder.com/400x250/131A2C/4ADE80?text=DragonLight+IoT'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">DragonLight System</h4>
+            <p class="card-subtitle">IoT Remote Control & Energy Monitoring</p>
+            <div class="card-tags">
+              <span class="mini-tag">ESP32</span>
+              <span class="mini-tag">Firebase</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- KATEGORI 3: UI/UX DESIGN -->
+    <div class="projects-category">
+      <h3 class="category-title">UI/UX & Design</h3>
+      <div class="grid-container">
+
+        <!-- Card UI/UX 1 -->
+        <div class="grid-card" onclick="openModal('UI/UX Concept Design', 'docs/uiux-design.pdf')">
+          <div class="card-image-box">
+            <img src="images/uiux-design.jpg" alt="UI/UX Design" onerror="this.src='https://via.placeholder.com/400x250/131A2C/38BDF8?text=Clean+UI/UX+Figma'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Minimalist Web & Mobile Interface</h4>
+            <p class="card-subtitle">Clean Prototyping & User Centric Flow</p>
+            <div class="card-tags">
+              <span class="mini-tag">Figma</span>
+              <span class="mini-tag">UI/UX</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- CERTIFICATIONS -->
+<div id="certs-wrapper">
+  <section id="certifications">
+    <div class="section-header">
+      <span class="section-label">03 // Verifications</span>
+      <h2 class="section-title">Certifications & Training</h2>
+    </div>
+
+    <div class="cert-group">
+      <div class="cert-group-title">Software, Cloud & Design</div>
+      <div class="cert-list">
+        <div class="cert-item clickable" onclick="openModal('GitHub Foundations Certification', 'certificates/github-foundations.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">GitHub Foundations Certification — DataCamp</span></div><div class="cert-meta-container"><span class="cert-year">2026</span><span class="cert-view-icon">🌐</span></div></div>
+        <div class="cert-item clickable" onclick="openModal('UI/UX Design Bootcamp', 'certificates/uiux-dibimbing.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">UI/UX Design Bootcamp — Dibimbing.id</span></div><div class="cert-meta-container"><span class="cert-year">2026</span><span class="cert-view-icon">🎨</span></div></div>
+        <div class="cert-item clickable" onclick="openModal('GDSC Website Development', 'certificates/gdsc-web.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">GDSC Website Development</span></div><div class="cert-meta-container"><span class="cert-year">2024</span><span class="cert-view-icon">🌐</span></div></div>
+      </div>
+    </div>
+
+    <div class="cert-group">
+      <div class="cert-group-title">IoT & Networking Infrastructure</div>
+      <div class="cert-list">
+        <div class="cert-item clickable" onclick="openModal('MikroTik Certified Network Associate (MTCNA)', 'certificates/mtcna.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">MikroTik Certified Network Associate (MTCNA)</span></div><div class="cert-meta-container"><span class="cert-year">2025</span><span class="cert-view-icon">📡</span></div></div>
+        <div class="cert-item clickable" onclick="openModal('IoT Fundamentals: Connecting Things', 'certificates/iot-fundamentals.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">IoT Fundamentals: Connecting Things — Cisco</span></div><div class="cert-meta-container"><span class="cert-year">2023</span><span class="cert-view-icon">🔌</span></div></div>
+        <div class="cert-item clickable" onclick="openModal('2nd Place — Olimpiade Cyber Security & IoT (ARA 2021)', 'certificates/ara-2nd-place.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">🥈 2nd Place — Olimpiade Cyber Security & IoT (ARA 2021)</span></div><div class="cert-meta-container"><span class="cert-year">2021</span><span class="cert-view-icon">🏆</span></div></div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top: 4rem; margin-bottom: 1.5rem;">
+      <span class="section-label">// Core Stack</span>
+      <h2 class="section-title" style="font-size: 1.35rem;">Technical Skills Matrix</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-chip">TypeScript</div><div class="skill-chip">Next.js</div>
+      <div class="skill-chip">HTML & CSS</div><div class="skill-chip">Python</div>
+      <div class="skill-chip">Flask</div><div class="skill-chip">ESP32</div>
+      <div class="skill-chip">Firebase</div><div class="skill-chip">Figma</div>
+      <div class="skill-chip">UI/UX Design</div><div class="skill-chip">REST API</div>
+      <div class="skill-chip">Git & GitHub</div><div class="skill-chip">MySQL</div>
+      <div class="skill-chip">Canva</div><div class="skill-chip">Networking</div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div style="padding: 0 1.5rem;">
+  <section id="contact">
+    <div class="contact-card">
+      <h3>Contact Me</h3>
+      <div class="contact-links">
+        
+        <!-- EMAIL -->
+        <a href="mailto:isti.tiandinii@gmail.com" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email
+        </a>
+
+        <!-- LINKEDIN -->
+        <a href="https://www.linkedin.com/in/istitiandini/" class="contact-link" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.78a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/></svg>
+          LinkedIn
+        </a>
+
+        <!-- WHATSAPP -->
+        <a href="https://wa.me/6281914835296" class="contact-link" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.39-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.32a8.188 8.188 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24m4.52 10.2c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.12-.17.25-.66.81-.81.98-.15.17-.31.19-.56.06-.25-.13-1.06-.39-2.02-1.25-.74-.66-1.24-1.48-1.39-1.73-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.31z"/></svg>
+          WhatsApp
+        </a>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <span>Banyuwangi, Jawa Timur, Indonesia | 2026</span>
+</footer>
+
+<!-- MODAL PREVIEW -->
+<div class="modal-overlay" id="docModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">system_terminal_viewer.sh</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // TYPING ANIMATION ENGINE
+  const phrases = ['IT Enthusiast','Web Developer', 'Web Design', 'UI/UX Design', 'Internet of Things'];
+  let pi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typed');
+  function type() {
+    const word = phrases[pi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 40 : 80);
+  }
+  type();
+
+  // STAGED OBJECT MODAL PREVIEW
+  function openModal(title, filePath) {
+    document.getElementById('modalTitle').textContent = `view_file --name "${title}"`;
+    const body = document.getElementById('modalBody');
+    const ext = filePath.split('.').pop().toLowerCase();
+    if (ext === 'pdf') {
+      body.innerHTML = `<iframe src="${filePath}#toolbar=1" title="${title}"></iframe>`;
+    } else if (['ppt','pptx'].includes(ext)) {
+      const src = encodeURIComponent(location.origin + '/' + filePath);
+      body.innerHTML = `<iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${src}" title="${title}"></iframe>`;
+    } else if (['jpg','jpeg','png','webp'].includes(ext)) {
+      body.innerHTML = `<div style="padding:1.5rem;text-align:center;overflow:auto;max-height:550px;"><img src="${filePath}" style="max-width:100%;border-radius:6px;border:1px solid var(--border);" alt="${title}"></div>`;
+    } else {
+      body.innerHTML = `<div class="no-preview"><div class="icon">&gt;_</div><p>Target document path missing.<br>Verify artifact is staged inside <code>docs/</code> or <code>certificates/</code> directory relative to repository host root.</p></div>`;
+    }
+    document.getElementById('docModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('docModal').classList.remove('active');
+    document.getElementById('modalBody').innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('docModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>
