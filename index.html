@@ -133,7 +133,7 @@
   .cert-group { margin-bottom: 3rem; }
   .cert-group:last-child { margin-bottom: 0; }
   .cert-group-title { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
-  
+    
   .cert-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 0.75rem; }
   @media (max-width: 900px) { .cert-list { grid-template-columns: 1fr; } }
   
@@ -149,6 +149,8 @@
   .cert-meta-container { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; font-family: var(--font-mono); font-size: 0.75rem; }
   .cert-year { color: var(--text-muted); }
   .cert-view-icon { color: var(--accent-success); font-weight: bold; }
+  a.cert-item { text-decoration: none; color: inherit; }
+  a.cert-item .cert-name, a.cert-item .cert-year { text-decoration: none; }
 
   /* SKILLS MATRIX */
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.5rem; }
@@ -168,21 +170,31 @@
   /* MODAL PREVIEW */
   .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(7, 10, 17, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1.5rem; }
   .modal-overlay.active { display: flex; }
-  .modal-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 900px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); }
-  .modal-body-content { padding: 2rem; background: var(--bg-main); max-height: 85vh; overflow-y: auto; }
-  .modal-project-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: start; }
-  .modal-project-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
-  .modal-project-desc p { margin-bottom: 0.85rem; text-align: justify; }
+  a.cert-item {
+    text-decoration: none;
+    color: inherit;
+  }
+  a.cert-item .cert-name, 
+  a.cert-item .cert-year {
+    text-decoration: none;
+  }
+  .modal-project-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: start; }
+  .modal-project-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; }
+  .modal-project-desc p { margin-bottom: 1.25rem; text-align: justify; }
   .modal-project-desc ul {  margin-left: 1.2rem; margin-bottom: 1rem; }
-  .modal-project-desc li { margin-bottom: 0.5rem; }
+  .modal-project-desc li { margin-bottom: 0.75rem; text-align: left; }
   .modal-project-desc strong { color: var(--text-primary); }
-  .modal-img-wrapper { width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-surface); }
-  .modal-img-wrapper img { width: 100%; height: auto; display: block; object-fit: cover; }
-  .modal-action-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
-  .modal-action-btns .btn { padding: 0.65rem 1.25rem; font-size: 0.82rem; }
-  @media (max-width: 768px) { .modal-project-layout { grid-template-columns: 1fr; gap: 1.5rem; }}
-  .modal-project-title { font-family: var(--font-heading); font-size: 1.6rem; color: #fff; margin-bottom: 1rem; line-height: 1.2; }
-  .modal-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg-main); }
+  .modal-img-content { display: flex; flex-direction: column; align-items: flex-end; gap: 1.5rem; }
+  .modal-img-wrapper { width: 100%; border-radius: 0; overflow: visible; border: none; background: transparent; }
+  .modal-img-wrapper img { width: 100%; height: auto; display: block; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+  .modal-action-btns { display: flex; justify-content: flex-end; width: 100%; }
+  .modal-action-btns .btn { padding: 0.75rem 1.5rem; font-size: 0.85rem; }
+  @media (max-width: 768px) { 
+    .modal-project-layout { grid-template-columns: 1fr; gap: 1.5rem; } 
+    .modal-img-content { align-items: stretch; }
+    .modal-action-btns { justify-content: center; }}
+  .modal-project-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 1.5rem; line-height: 1.25; }
+  .modal-header { padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg-main); }
   .modal-title { font-family: var(--font-mono); font-weight: 500; font-size: 0.85rem; color: var(--text-muted); }
   .modal-close { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--border); background: transparent; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
   .modal-close:hover { border-color: #EF4444; color: #EF4444; }
@@ -222,13 +234,13 @@
   <section id="hero">
     <div class="terminal-window">
       <div class="terminal-header"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-      <span class="hero-eyebrow">Web Developer | IoT Developer</span>
+      <span class="hero-eyebrow">Web Developer | IoT Developer | UI/UX Design</span>
       <h1 class="hero-name">Isti Tiandini</h1>
       <div class="hero-tagline">&gt; <span id="typed"></span><span class="cursor"></span></div>
       <p class="hero-desc">Fresh graduate in Internet Engineering Technology from Universitas Gadjah Mada. Passionate about building end-to-end digital solutions — from clean UI/UX designs and responsive web applications to smart IoT architectures.</p>
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="mailto:isti.tiandinii@gmail.com" class="btn btn-outline">connect</a>
+        <a href="#contact" class="btn btn-outline">connect</a>
       </div>
     </div>
   </section>
@@ -317,21 +329,29 @@
       <div class="grid-container">
 
         <!-- Sport-On -->
-        <div class="grid-card" onclick="openModal(
-          'SPORT-ON', 
-          'image/sport-on-big.png', 
-          `
-          <p>Pengembangan aplikasi web e-commerce <strong>Sport-On</strong> yang dibangun secara mandiri menggunakan bahasa pemrograman TypeScript (Program bootcamp Web Programming Plan Indonesia). Proyek ini mendemonstrasikan pemahaman teknis saya terhadap arsitektur dasar pengembangan website modern secara murni.</p>
-          <p>Fokus pengembangan teknis meliputi:</p>
-          <ul>
-            <li><strong>Front-End Development:</strong> Membangun antarmuka pengguna (UI) yang dinamis dan interaktif menggunakan TypeScript.</li>
-            <li><strong>Alur Fungsionalitas:</strong> Merancang struktur halaman multi-fungsi yang mencakup Beranda (Home), navigasi Katalog Produk, hingga fitur fungsional interaktif untuk Menambahkan Produk.</li>
-            <li><strong>Logika Transaksi:</strong> Mengimplementasikan simulasi alur checkout dan transaksi e-commerce untuk memperkuat pemahaman mengenai interaksi dan alur data pada sebuah situs web komersial.</li>
-          </ul>`, 
-          'https://sporton-fe-vercel-deploy-3fmq.vercel.app', 
-        )">
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website Sport-On" 
+               data-image="image/sport-on-big.png" 
+               data-url="https://sporton-fe-vercel-deploy-3fmq.vercel.app" 
+               data-github="">
+            
+            <p>Development of the “Sport-On” e-commerce web application built using the TypeScript programming language.</p>
+            
+            <p>Technical development focuses on:</p>
+            <ul>
+              <li><strong>Front-End Development:</strong> Building a dynamic and interactive user interface (UI) using TypeScript.</li>
+              <li><strong>Functional Flow:</strong> Designing a multi-functional page structure that includes the Home page, Product Catalog navigation, and interactive features for adding products.</li>
+              <li><strong>Transaction Logic:</strong> Implementing a simulated checkout flow and e-commerce transactions to strengthen my understanding of interactions and data flow on a commercial website.</li>
+            </ul>
+
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
           <div class="card-image-box">
-            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://via.placeholder.com/400x250/131A2C/38BDF8?text=Sport-On'">
+            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://sporton-fe-vercel-deploy-3fmq.vercel.app'">
           </div>
           <div class="card-body">
             <h4 class="card-title">Sport-On</h4>
@@ -345,83 +365,216 @@
           </div>
         </div>
 
-        <!-- Card Web 1: Nasgor Station -->
-        <div class="grid-card" onclick="openModal('Nasgor Station — Route Finder', 'docs/nasgor-station.pdf')">
+        <!-- Kaha Rubber -->
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website Sport-On" 
+               data-image="image/sport-on-big.png" 
+               data-url="https://sporton-fe-vercel-deploy-3fmq.vercel.app" 
+               data-github="">
+            
+            <p>Pengembangan aplikasi web e-commerce <strong>Sport-On</strong> yang dibangun secara mandiri menggunakan bahasa pemrograman TypeScript (Program bootcamp Web Programming Plan Indonesia). Proyek ini mendemonstrasikan pemahaman teknis saya terhadap arsitektur dasar pengembangan website modern secara murni.</p>
+            
+            <p>Fokus pengembangan teknis meliputi:</p>
+            <ul>
+              <li><strong>Front-End Development:</strong> Membangun antarmuka pengguna (UI) yang dinamis dan interaktif menggunakan TypeScript.</li>
+              <li><strong>Alur Fungsionalitas:</strong> Merancang struktur halaman multi-fungsi yang mencakup Beranda (Home), navigasi Katalog Produk, hingga fitur fungsional interaktif untuk Menambahkan Produk.</li>
+              <li><strong>Logika Transaksi:</strong> Mengimplementasikan simulasi alur checkout dan transaksi e-commerce untuk memperkuat pemahaman mengenai interaksi dan alur data pada sebuah situs web komersial.</li>
+            </ul>
+
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
           <div class="card-image-box">
-            <img src="images/nasgor-station.jpg" alt="Nasgor Station" onerror="this.src='https://via.placeholder.com/400x250/131A2C/38BDF8?text=Nasgor+Station'">
+            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://sporton-fe-vercel-deploy-3fmq.vercel.app'">
           </div>
           <div class="card-body">
-            <h4 class="card-title">Nasgor Station</h4>
-            <p class="card-subtitle">Culinary Route Finder & Local Food Mapping</p>
+            <h4 class="card-title">Kaha Rubber</h4>
+            <p class="card-subtitle">Web Rubber Product</p>
+            <div class="card-tags">
+              <span class="mini-tag">WordPress</span>
+              <span class="mini-tag">CSS</span>
+              <span class="mini-tag">SEO</span>
+              <span class="mini-tag">WP App</span>
+              <span class="mini-tag">RankMath</span>
+              <span class="mini-tag">Copy Writing</span>
+              <span class="mini-tag">Canva</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IoT -->
+    <div class="projects-category">
+      <h3 class="category-title">Internet of Things</h3>
+      <div class="grid-container">
+
+        <!-- Sport-On -->
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website Sport-On" 
+               data-image="image/sport-on-big.png" 
+               data-url="https://sporton-fe-vercel-deploy-3fmq.vercel.app" 
+               data-github="">
+            
+            <p>Development of the “Sport-On” e-commerce web application built using the TypeScript programming language.</p>
+            
+            <p>Technical development focuses on:</p>
+            <ul>
+              <li><strong>Front-End Development:</strong> Building a dynamic and interactive user interface (UI) using TypeScript.</li>
+              <li><strong>Functional Flow:</strong> Designing a multi-functional page structure that includes the Home page, Product Catalog navigation, and interactive features for adding products.</li>
+              <li><strong>Transaction Logic:</strong> Implementing a simulated checkout flow and e-commerce transactions to strengthen my understanding of interactions and data flow on a commercial website.</li>
+            </ul>
+
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
+          <div class="card-image-box">
+            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://sporton-fe-vercel-deploy-3fmq.vercel.app'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Sport-On</h4>
+            <p class="card-subtitle">Web E-Commerce Sport Shop</p>
             <div class="card-tags">
               <span class="mini-tag">TypeScript</span>
-              <span class="mini-tag">Next.js</span>
+              <span class="mini-tag">React</span>
+              <span class="mini-tag">HTML</span>
+              <span class="mini-tag">CSS</span>
             </div>
           </div>
         </div>
 
-        <!-- Card Web 2: PDPGuard -->
-        <div class="grid-card" onclick="openModal('PDPGuard — Project Report', 'docs/pdpguard-report.pdf')">
+        <!-- Kaha Rubber -->
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website Sport-On" 
+               data-image="image/sport-on-big.png" 
+               data-url="https://sporton-fe-vercel-deploy-3fmq.vercel.app" 
+               data-github="">
+            
+            <p>Pengembangan aplikasi web e-commerce <strong>Sport-On</strong> yang dibangun secara mandiri menggunakan bahasa pemrograman TypeScript (Program bootcamp Web Programming Plan Indonesia). Proyek ini mendemonstrasikan pemahaman teknis saya terhadap arsitektur dasar pengembangan website modern secara murni.</p>
+            
+            <p>Fokus pengembangan teknis meliputi:</p>
+            <ul>
+              <li><strong>Front-End Development:</strong> Membangun antarmuka pengguna (UI) yang dinamis dan interaktif menggunakan TypeScript.</li>
+              <li><strong>Alur Fungsionalitas:</strong> Merancang struktur halaman multi-fungsi yang mencakup Beranda (Home), navigasi Katalog Produk, hingga fitur fungsional interaktif untuk Menambahkan Produk.</li>
+              <li><strong>Logika Transaksi:</strong> Mengimplementasikan simulasi alur checkout dan transaksi e-commerce untuk memperkuat pemahaman mengenai interaksi dan alur data pada sebuah situs web komersial.</li>
+            </ul>
+
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
           <div class="card-image-box">
-            <img src="images/pdpguard.jpg" alt="PDPGuard" onerror="this.src='https://via.placeholder.com/400x250/131A2C/38BDF8?text=PDPGuard+Platform'">
+            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://sporton-fe-vercel-deploy-3fmq.vercel.app'">
           </div>
           <div class="card-body">
-            <h4 class="card-title">PDPGuard Platform</h4>
-            <p class="card-subtitle">Automated API Security Assessment</p>
+            <h4 class="card-title">Kaha Rubber</h4>
+            <p class="card-subtitle">Web Rubber Product</p>
             <div class="card-tags">
-              <span class="mini-tag">Python</span>
-              <span class="mini-tag">Flask</span>
+              <span class="mini-tag">WordPress</span>
+              <span class="mini-tag">CSS</span>
+              <span class="mini-tag">SEO</span>
+              <span class="mini-tag">WP App</span>
+              <span class="mini-tag">RankMath</span>
+              <span class="mini-tag">Copy Writing</span>
+              <span class="mini-tag">Canva</span>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- KATEGORI 2: IOT & SMART SYSTEMS -->
+    <!-- Design -->
     <div class="projects-category">
-      <h3 class="category-title">IoT & Smart Systems</h3>
+      <h3 class="category-title">UI/UX Design & Graphic Design</h3>
       <div class="grid-container">
 
-        <!-- Card IoT 1: DragonLight -->
-        <div class="grid-card" onclick="openModal('DragonLight — Final Report', 'docs/dragonlight.pdf')">
+        <!-- Sport-On -->
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website Sport-On" 
+               data-image="image/sport-on-big.png" 
+               data-url="https://sporton-fe-vercel-deploy-3fmq.vercel.app" 
+               data-github="">
+            
+            <p>Development of the “Sport-On” e-commerce web application built using the TypeScript programming language.</p>
+            
+            <p>Technical development focuses on:</p>
+            <ul>
+              <li><strong>Front-End Development:</strong> Building a dynamic and interactive user interface (UI) using TypeScript.</li>
+              <li><strong>Functional Flow:</strong> Designing a multi-functional page structure that includes the Home page, Product Catalog navigation, and interactive features for adding products.</li>
+              <li><strong>Transaction Logic:</strong> Implementing a simulated checkout flow and e-commerce transactions to strengthen my understanding of interactions and data flow on a commercial website.</li>
+            </ul>
+
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
           <div class="card-image-box">
-            <img src="images/dragonlight.jpg" alt="DragonLight" onerror="this.src='https://via.placeholder.com/400x250/131A2C/4ADE80?text=DragonLight+IoT'">
+            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://sporton-fe-vercel-deploy-3fmq.vercel.app'">
           </div>
           <div class="card-body">
-            <h4 class="card-title">DragonLight System</h4>
-            <p class="card-subtitle">IoT Remote Control & Energy Monitoring</p>
+            <h4 class="card-title">Sport-On</h4>
+            <p class="card-subtitle">Web E-Commerce Sport Shop</p>
             <div class="card-tags">
-              <span class="mini-tag">ESP32</span>
-              <span class="mini-tag">Firebase</span>
+              <span class="mini-tag">TypeScript</span>
+              <span class="mini-tag">React</span>
+              <span class="mini-tag">HTML</span>
+              <span class="mini-tag">CSS</span>
             </div>
           </div>
         </div>
 
+        <!-- Kaha Rubber -->
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website Sport-On" 
+               data-image="image/sport-on-big.png" 
+               data-url="https://sporton-fe-vercel-deploy-3fmq.vercel.app" 
+               data-github="">
+            
+            <p>Pengembangan aplikasi web e-commerce <strong>Sport-On</strong> yang dibangun secara mandiri menggunakan bahasa pemrograman TypeScript (Program bootcamp Web Programming Plan Indonesia). Proyek ini mendemonstrasikan pemahaman teknis saya terhadap arsitektur dasar pengembangan website modern secara murni.</p>
+            
+            <p>Fokus pengembangan teknis meliputi:</p>
+            <ul>
+              <li><strong>Front-End Development:</strong> Membangun antarmuka pengguna (UI) yang dinamis dan interaktif menggunakan TypeScript.</li>
+              <li><strong>Alur Fungsionalitas:</strong> Merancang struktur halaman multi-fungsi yang mencakup Beranda (Home), navigasi Katalog Produk, hingga fitur fungsional interaktif untuk Menambahkan Produk.</li>
+              <li><strong>Logika Transaksi:</strong> Mengimplementasikan simulasi alur checkout dan transaksi e-commerce untuk memperkuat pemahaman mengenai interaksi dan alur data pada sebuah situs web komersial.</li>
+            </ul>
+
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
+          <div class="card-image-box">
+            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://sporton-fe-vercel-deploy-3fmq.vercel.app'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Kaha Rubber</h4>
+            <p class="card-subtitle">Web Rubber Product</p>
+            <div class="card-tags">
+              <span class="mini-tag">WordPress</span>
+              <span class="mini-tag">CSS</span>
+              <span class="mini-tag">SEO</span>
+              <span class="mini-tag">WP App</span>
+              <span class="mini-tag">RankMath</span>
+              <span class="mini-tag">Copy Writing</span>
+              <span class="mini-tag">Canva</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- KATEGORI 3: UI/UX DESIGN -->
-    <div class="projects-category">
-      <h3 class="category-title">UI/UX & Design</h3>
-      <div class="grid-container">
-
-        <!-- Card UI/UX 1 -->
-        <div class="grid-card" onclick="openModal('UI/UX Concept Design', 'docs/uiux-design.pdf')">
-          <div class="card-image-box">
-            <img src="images/uiux-design.jpg" alt="UI/UX Design" onerror="this.src='https://via.placeholder.com/400x250/131A2C/38BDF8?text=Clean+UI/UX+Figma'">
-          </div>
-          <div class="card-body">
-            <h4 class="card-title">Minimalist Web & Mobile Interface</h4>
-            <p class="card-subtitle">Clean Prototyping & User Centric Flow</p>
-            <div class="card-tags">
-              <span class="mini-tag">Figma</span>
-              <span class="mini-tag">UI/UX</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
+    
     </div>
 
   </section>
@@ -431,41 +584,235 @@
 <div id="certs-wrapper">
   <section id="certifications">
     <div class="section-header">
-      <span class="section-label">03 // Verifications</span>
       <h2 class="section-title">Certifications & Training</h2>
     </div>
 
     <div class="cert-group">
-      <div class="cert-group-title">Software, Cloud & Design</div>
+      <div class="cert-group-title">PROGRAMMING</div>
       <div class="cert-list">
-        <div class="cert-item clickable" onclick="openModal('GitHub Foundations Certification', 'certificates/github-foundations.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">GitHub Foundations Certification — DataCamp</span></div><div class="cert-meta-container"><span class="cert-year">2026</span><span class="cert-view-icon">🌐</span></div></div>
-        <div class="cert-item clickable" onclick="openModal('UI/UX Design Bootcamp', 'certificates/uiux-dibimbing.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">UI/UX Design Bootcamp — Dibimbing.id</span></div><div class="cert-meta-container"><span class="cert-year">2026</span><span class="cert-view-icon">🎨</span></div></div>
-        <div class="cert-item clickable" onclick="openModal('GDSC Website Development', 'certificates/gdsc-web.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">GDSC Website Development</span></div><div class="cert-meta-container"><span class="cert-year">2024</span><span class="cert-view-icon">🌐</span></div></div>
+
+        <!-- Web Programming FYEP -->
+        <a target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Web Programming — FYEP Plan Indonesia</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2026</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- Software Engineering -->
+        <a href="https://drive.google.com/file/d/1xhT8uu3i4ZtZiku7FXpE4tbyPymofd-X/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Intro to Software Engineering — RevoU</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2026</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- GitHub Foundations -->
+        <a href="https://drive.google.com/file/d/1XN2v5W2lMhoF32vPv4OkKFXhHTVyCIRB/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">GitHub Foundations — DataCamp</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2026</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- Git -->
+        <a href="https://drive.google.com/file/d/1hqsKC8FYfpqOk7qy0Wykgv1LvZF_kuZa/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Intermediate Git — DataCamp</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2026</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- SQL -->
+        <a href="https://drive.google.com/file/d/1DEjkLy_vt7tFYb9HnPwvMgM_0Rzbj-7Y/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Introduction to SQL — DataCamp</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2026</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- Python -->
+        <a href="https://drive.google.com/file/d/1AM8fxq2-r6pd0zXgF8LVPnsqm_Nl07Vj/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Introduction to Python — DataCamp</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2026</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
       </div>
     </div>
 
     <div class="cert-group">
-      <div class="cert-group-title">IoT & Networking Infrastructure</div>
+      <div class="cert-group-title">INTERNET OF THINGS</div>
       <div class="cert-list">
-        <div class="cert-item clickable" onclick="openModal('MikroTik Certified Network Associate (MTCNA)', 'certificates/mtcna.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">MikroTik Certified Network Associate (MTCNA)</span></div><div class="cert-meta-container"><span class="cert-year">2025</span><span class="cert-view-icon">📡</span></div></div>
-        <div class="cert-item clickable" onclick="openModal('IoT Fundamentals: Connecting Things', 'certificates/iot-fundamentals.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">IoT Fundamentals: Connecting Things — Cisco</span></div><div class="cert-meta-container"><span class="cert-year">2023</span><span class="cert-view-icon">🔌</span></div></div>
-        <div class="cert-item clickable" onclick="openModal('2nd Place — Olimpiade Cyber Security & IoT (ARA 2021)', 'certificates/ara-2nd-place.pdf')"><div class="cert-title-container"><div class="cert-status"></div><span class="cert-name">🥈 2nd Place — Olimpiade Cyber Security & IoT (ARA 2021)</span></div><div class="cert-meta-container"><span class="cert-year">2021</span><span class="cert-view-icon">🏆</span></div></div>
+
+        <!-- Pemrograman Mikrokontroler untuk pemula -->
+        <a href="https://drive.google.com/file/d/1u1PD6mH0cm2-DNfa-zcnBI_XlCdJRcMd/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Pemrograman Mikrokontroler untuk Pemula - BPVP Sidoarjo</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2026</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- IoT Fundamentals: Connecting Things -->
+        <a href="https://drive.google.com/file/d/1Aghn9-VQEDzksmo_qEiyhOHUE2wDURbu/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">IoT Fundamentals: Connecting Things — Cisco Networking Academy</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2023</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
       </div>
     </div>
 
+    <div class="cert-group">
+      <div class="cert-group-title">NETWORKING</div>
+      <div class="cert-list">
+
+        <!-- MTCNA -->
+        <a href="https://drive.google.com/file/d/1iiADsh8r3CRXpVAt11XO3GtcuJuhqXt0/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">MikroTik Certified Network Associate (MTCNA)</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2025</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- DNS Alibaba -->
+        <a href="https://drive.google.com/file/d/1xE90jWg9Hkk88b3mmr9-DzmaSI6SmMhu/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Role of DNS in Networking — Alibaba Cloud Certification</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2025</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- CCNA -->
+        <a href="https://drive.google.com/file/d/1FJKchnWUs4eEEaImoZKAnIGvWLy_0yc3/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">CCNAv7: Introduction to Networks — Cisco Networking Academy</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2022</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>        
+      </div>
+    </div>
+
+    <div class="cert-group">
+      <div class="cert-group-title">DESIGN</div>
+      <div class="cert-list">
+
+        <!-- UI/UX Design Bootcamp -->
+        <a href="https://drive.google.com/file/d/1t8VelX4M-QJH8WoRG2R1gVdhcLUErDED/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">UI/UX Design Bootcamp — Dibimbing.id</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2026</span>
+            <span class="cert-view-icon">🎨</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="cert-group">
+      <div class="cert-group-title">INTERN</div>
+      <div class="cert-list">
+
+        <!-- Life Media -->
+        <a target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Web Developer - SaranaInsan MudaSelaras (Life Media)</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2024</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- Visi Arlion -->
+        <a href="https://drive.google.com/file/d/1amMuE5vSLWj6W1_wqpCybhfp7eaYvfQk/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Digital Marketing - Visi Arlion Internasional</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2023-2024</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+        <!-- Datains -->
+        <a href="https://drive.google.com/file/d/1Y-MI7mOVFCtpJ-hGlFHAQHjzPSUlN_lh/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cert-item clickable">
+          <div class="cert-title-container">
+            <div class="cert-status"></div>
+            <span class="cert-name">Data Analyst - Global Data Inspirasi</span>
+          </div>
+          <div class="cert-meta-container">
+            <span class="cert-year">2023</span>
+            <span class="cert-view-icon">🌐</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+
+    <!-- 
     <div class="section-header" style="margin-top: 4rem; margin-bottom: 1.5rem;">
-      <span class="section-label">// Core Stack</span>
-      <h2 class="section-title" style="font-size: 1.35rem;">Technical Skills Matrix</h2>
+      <h2 class="section-title" style="font-size: 1.35rem;">Technical Skills</h2>
     </div>
     <div class="skills-grid">
-      <div class="skill-chip">TypeScript</div><div class="skill-chip">Next.js</div>
+      <div class="skill-chip">TypeScript</div><div class="skill-chip">HTML & CSS</div>
       <div class="skill-chip">HTML & CSS</div><div class="skill-chip">Python</div>
       <div class="skill-chip">Flask</div><div class="skill-chip">ESP32</div>
       <div class="skill-chip">Firebase</div><div class="skill-chip">Figma</div>
       <div class="skill-chip">UI/UX Design</div><div class="skill-chip">REST API</div>
       <div class="skill-chip">Git & GitHub</div><div class="skill-chip">MySQL</div>
       <div class="skill-chip">Canva</div><div class="skill-chip">Networking</div>
-    </div>
+    </div> -->
   </section>
 </div>
 
@@ -516,7 +863,7 @@
 
 <script>
   // TYPING ANIMATION ENGINE
-  const phrases = ['IT Enthusiast','Web Developer', 'Web Design', 'UI/UX Design', 'Internet of Things'];
+  const phrases = ['IT Enthusiast','Web Developer', 'Search Engine Optimization', 'Internet of Things', 'Web Design', 'UI/UX Design', 'Graphic Design'];
   let pi = 0, ci = 0, deleting = false;
   const el = document.getElementById('typed');
   function type() {
@@ -532,21 +879,46 @@
   }
   type();
 
-  // STAGED OBJECT MODAL PREVIEW
-  function openModal(title, filePath) {
-    document.getElementById('modalTitle').textContent = `view_file --name "${title}"`;
+  // FUNGSI JAVASCRIPT UNTUK MODAL POPUP (TEKS KIRI, GAMBAR KANAN)
+  function showProjectDetails(cardElement) {
+    const dataElement = cardElement.querySelector('.project-data');
+    if (!dataElement) return;
+
+    const title = dataElement.getAttribute('data-title');
+    const image = dataElement.getAttribute('data-image');
+    const url = dataElement.getAttribute('data-url');
+    const github = dataElement.getAttribute('data-github');
+    const descriptionHtml = dataElement.innerHTML;
+
+    document.getElementById('modalTitle').textContent = `${title}`;
+    
     const body = document.getElementById('modalBody');
-    const ext = filePath.split('.').pop().toLowerCase();
-    if (ext === 'pdf') {
-      body.innerHTML = `<iframe src="${filePath}#toolbar=1" title="${title}"></iframe>`;
-    } else if (['ppt','pptx'].includes(ext)) {
-      const src = encodeURIComponent(location.origin + '/' + filePath);
-      body.innerHTML = `<iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${src}" title="${title}"></iframe>`;
-    } else if (['jpg','jpeg','png','webp'].includes(ext)) {
-      body.innerHTML = `<div style="padding:1.5rem;text-align:center;overflow:auto;max-height:550px;"><img src="${filePath}" style="max-width:100%;border-radius:6px;border:1px solid var(--border);" alt="${title}"></div>`;
-    } else {
-      body.innerHTML = `<div class="no-preview"><div class="icon">&gt;_</div><p>Target document path missing.<br>Verify artifact is staged inside <code>docs/</code> or <code>certificates/</code> directory relative to repository host root.</p></div>`;
-    }
+    
+    body.innerHTML = `
+      <div class="modal-project-layout">
+        <!-- KOLOM KIRI: TEKS DETAIL -->
+        <div class="modal-text-content">
+          <h3 class="modal-project-title">${title}</h3>
+          
+          <div class="modal-project-desc">
+            ${descriptionHtml}
+          </div>
+          
+          <div class="modal-action-btns">
+            ${url ? `<a href="${url}" target="_blank" class="btn btn-primary">See Project ↗</a>` : ''}
+            ${github ? `<a href="${github}" target="_blank" class="btn btn-outline">Source Code</a>` : ''}
+          </div>
+        </div>
+
+        <!-- KOLOM KANAN: MOCKUP GAMBAR -->
+        <div class="modal-img-content">
+          <div class="modal-img-wrapper">
+            <img src="${image}" alt="${title}" onerror="this.src='https://via.placeholder.com/600x400/131A2C/38BDF8?text=${encodeURIComponent(title)}'">
+          </div>
+        </div>
+      </div>
+    `;
+
     document.getElementById('docModal').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
