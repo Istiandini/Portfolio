@@ -178,11 +178,11 @@
   a.cert-item .cert-year {
     text-decoration: none;
   }
-  .modal-project-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: start; }
-  .modal-project-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; }
-  .modal-project-desc p { margin-bottom: 1.25rem; text-align: justify; }
-  .modal-project-desc ul {  margin-left: 1.2rem; margin-bottom: 1rem; }
-  .modal-project-desc li { margin-bottom: 0.75rem; text-align: left; }
+  .modal-project-layout { display: grid; grid-template-columns: 1.6fr 0.7fr; gap: 0.5rem; align-items: start; width: 100%; }
+  .modal-project-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.5; padding-left: 1.5rem; padding-right: 1.5rem;}
+  .modal-project-desc p { margin-bottom: 0.5rem; text-align: justify; text-justify: inter-word; }
+  .modal-project-desc ul { margin-left: 1rem; margin-bottom: 1rem; }
+  .modal-project-desc li { margin-bottom: 0.5rem; text-align: justify; text-justify: inter-word; }
   .modal-project-desc strong { color: var(--text-primary); }
   .modal-img-content { display: flex; flex-direction: column; align-items: flex-end; gap: 1.5rem; }
   .modal-img-wrapper { width: 100%; border-radius: 0; overflow: visible; border: none; background: transparent; }
@@ -193,13 +193,15 @@
     .modal-project-layout { grid-template-columns: 1fr; gap: 1.5rem; } 
     .modal-img-content { align-items: stretch; }
     .modal-action-btns { justify-content: center; }}
-  .modal-project-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 1.5rem; line-height: 1.25; }
+  .modal-project-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 1.5rem; margin-top: 0.5rem; line-height: 1.25; }
   .modal-header { padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg-main); }
   .modal-title { font-family: var(--font-mono); font-weight: 500; font-size: 0.85rem; color: var(--text-muted); }
   .modal-close { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--border); background: transparent; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
   .modal-close:hover { border-color: #EF4444; color: #EF4444; }
   .modal-body { flex: 1; background: var(--bg-main); overflow: hidden; }
   .modal-body iframe { width: 100%; height: 100%; min-height: 550px; border: none; display: block; }
+  .modal-body-content { padding: 3.5rem 4rem; background: var(--bg-main); max-height: 85vh; overflow-y: auto; box-sizing: border-box; }
+  .modal-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; width: 90%; max-width: 1050px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); }
   .no-preview { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 350px; color: var(--text-muted); gap: 1rem; text-align: center; padding: 2rem; }
   .no-preview .icon { font-size: 2.5rem; color: var(--accent); }
   .no-preview p { font-size: 0.875rem; font-family: var(--font-mono); }
@@ -267,8 +269,8 @@
 
         <!-- 1. GPA -->
         <div class="stat-item-with-icon">
-          <div class="popout-icon-container">
-            <img src="image/gpa-hat.png" alt="Graduation Cap" class="popout-icon" style="width: 45px; height: auto;">
+          <div class="popout-icon-container" style="top: -50px; left: -15px;">
+            <img src="image/gpa-hat.png" alt="Graduation Cap" class="popout-icon" style="width: 100px; height: auto;">
           </div>
           <div class="stat-card">
             <div class="stat-num">3.55</div>
@@ -278,8 +280,8 @@
 
         <!-- 2. WEB DEV -->
         <div class="stat-item-with-icon">
-          <div class="popout-icon-container">
-            <img src="image/web-dev.png" alt="Web Dev Icon" class="popout-icon" style="width: 45px; height: auto;">
+          <div class="popout-icon-container" style="top: -60px; left: -20px;">
+            <img src="image/web-dev.png" alt="Web Dev Icon" class="popout-icon" style="width: 100px; height: auto;">
           </div>
           <div class="stat-card">
             <div class="stat-num">WEB</div>
@@ -289,8 +291,8 @@
 
         <!-- 3. IOT -->
         <div class="stat-item-with-icon">
-          <div class="popout-icon-container">
-            <img src="image/iot-systems.png" alt="IoT Icon" class="popout-icon" style="width: 45px; height: auto;">
+          <div class="popout-icon-container" style="top: -62px; left: -20px;">
+            <img src="image/iot-systems.png" alt="IoT Icon" class="popout-icon" style="width: 100px; height: auto;">
           </div>
           <div class="stat-card">
             <div class="stat-num">IoT</div>
@@ -300,8 +302,8 @@
 
         <!-- 4. UI/UX -->
         <div class="stat-item-with-icon">
-          <div class="popout-icon-container">
-            <img src="image/uiux-design.png" alt="UI/UX Icon" class="popout-icon" style="width: 45px; height: auto;">
+          <div class="popout-icon-container" style="top: -60px; left: -20px;">
+            <img src="image/uiux-design.png" alt="UI/UX Icon" class="popout-icon" style="width: 120px; height: auto;">
           </div>
           <div class="stat-card">
             <div class="stat-num">UI/UX</div>
@@ -340,13 +342,12 @@
             
             <p>Development of the “Sport-On” e-commerce web application built using the TypeScript programming language.</p>
             
-            <p>Technical development focuses on:</p>
+            <p>Technical development focused on:</p>
             <ul>
               <li><strong>Front-End Development:</strong> Building a dynamic and interactive user interface (UI) using TypeScript.</li>
               <li><strong>Functional Flow:</strong> Designing a multi-functional page structure that includes the Home page, Product Catalog navigation, and interactive features for adding products.</li>
               <li><strong>Transaction Logic:</strong> Implementing a simulated checkout flow and e-commerce transactions to strengthen my understanding of interactions and data flow on a commercial website.</li>
             </ul>
-
           </div>
 
           <!-- TAMPILAN KARTU UTAMA -->
@@ -355,12 +356,50 @@
           </div>
           <div class="card-body">
             <h4 class="card-title">Sport-On</h4>
-            <p class="card-subtitle">Web E-Commerce Sport Shop</p>
+            <p class="card-subtitle">E-Commerce Sport Store Website</p>
             <div class="card-tags">
               <span class="mini-tag">TypeScript</span>
               <span class="mini-tag">React</span>
               <span class="mini-tag">HTML</span>
               <span class="mini-tag">CSS</span>
+              <span class="mini-tag">Figma</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profil SIMS -->
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website SIMS" 
+               data-image="image/sims-big.png" 
+               data-url="https://sporton-fe-vercel-deploy-3fmq.vercel.app" 
+               data-github="">
+            
+            <p>Development of a company profile website built using the WordPress CMS and Elementor. This project was carried out collaboratively, with the goal of creating a modern, interactive, and professional business profile platform.</p>
+            
+            <p>Technical development focused on:</p>
+            <ul>
+              <li><strong>Troubleshooting & Layouting:</strong> Building and structuring the entire page architecture from scratch, as well as resolving visual layout issues to ensure the sites appearance remains consistent and 100% responsive across various device sizes.</li>
+              <li><strong>Functional Flow:</strong> Designing a multi-functional page structure that includes the Home page, Product Catalog navigation, and interactive features for adding products.</li>
+              <li><strong>Transaction Logic:</strong> Implementing a simulated checkout flow and e-commerce transactions to strengthen my understanding of interactions and data flow on a commercial website.</li>
+            </ul>
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
+          <div class="card-image-box">
+            <img src="image/sims.png" alt="Sport-On" onerror="this.src='https://sporton-fe-vercel-deploy-3fmq.vercel.app'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">SIMS</h4>
+            <p class="card-subtitle">Company Profile Website</p>
+            <div class="card-tags">
+              <span class="mini-tag">TypeScript</span>
+              <span class="mini-tag">React</span>
+              <span class="mini-tag">HTML</span>
+              <span class="mini-tag">CSS</span>
+              <span class="mini-tag">Figma</span>
             </div>
           </div>
         </div>
@@ -370,32 +409,116 @@
           
           <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
           <div class="project-data" style="display: none;"
-               data-title="Website Sport-On" 
-               data-image="image/sport-on-big.png" 
-               data-url="https://sporton-fe-vercel-deploy-3fmq.vercel.app" 
+               data-title="Website Kaha Rubber" 
+               data-image="image/kaha-rubber-big.png" 
+               data-url="https://kaharubber.com" 
                data-github="">
             
-            <p>Pengembangan aplikasi web e-commerce <strong>Sport-On</strong> yang dibangun secara mandiri menggunakan bahasa pemrograman TypeScript (Program bootcamp Web Programming Plan Indonesia). Proyek ini mendemonstrasikan pemahaman teknis saya terhadap arsitektur dasar pengembangan website modern secara murni.</p>
+            <p>Development of the “Kaha Rubber” website, built using the WordPress CMS and Divi Theme Builder. This website serves as a catalog platform for industrial rubber products and road infrastructure, such as speed bumps, guiding blocks, and various automotive rubber components.</p>
             
-            <p>Fokus pengembangan teknis meliputi:</p>
+            <p>Technical development focused on:</p>
             <ul>
-              <li><strong>Front-End Development:</strong> Membangun antarmuka pengguna (UI) yang dinamis dan interaktif menggunakan TypeScript.</li>
-              <li><strong>Alur Fungsionalitas:</strong> Merancang struktur halaman multi-fungsi yang mencakup Beranda (Home), navigasi Katalog Produk, hingga fitur fungsional interaktif untuk Menambahkan Produk.</li>
-              <li><strong>Logika Transaksi:</strong> Mengimplementasikan simulasi alur checkout dan transaksi e-commerce untuk memperkuat pemahaman mengenai interaksi dan alur data pada sebuah situs web komersial.</li>
+              <li><strong>Layout & Troubleshooting:</strong> Planning and building the visual layout design from scratch to ensure it is 100% responsive across various devices.</li>
+              <li><strong>Live Chat Feature:</strong> Integrating the WP Chat App plugin to connect customers directly to the marketing team via WhatsApp.</li>
+              <li><strong>SEO Optimization:</strong> Performing technical configurations using the RankMath plugin and its extensions to improve Search Engine Optimization (SEO).</li>
+              <li><strong>Content Management:</strong> Crafting informative copy and designing professional-looking visual assets for the products.</li>
             </ul>
-
           </div>
 
           <!-- TAMPILAN KARTU UTAMA -->
           <div class="card-image-box">
-            <img src="image/sport-on-mini.png" alt="Sport-On" onerror="this.src='https://sporton-fe-vercel-deploy-3fmq.vercel.app'">
+            <img src="image/kaha-rubber.png" alt="Sport-On" onerror="this.src='https://kaharubber.com'">
           </div>
           <div class="card-body">
             <h4 class="card-title">Kaha Rubber</h4>
-            <p class="card-subtitle">Web Rubber Product</p>
+            <p class="card-subtitle">Rubber Product Website</p>
             <div class="card-tags">
               <span class="mini-tag">WordPress</span>
               <span class="mini-tag">CSS</span>
+              <span class="mini-tag">Web Design</span>
+              <span class="mini-tag">SEO</span>
+              <span class="mini-tag">WP App</span>
+              <span class="mini-tag">RankMath</span>
+              <span class="mini-tag">Copy Writing</span>
+              <span class="mini-tag">Canva</span>
+              <span class="mini-tag">Ahrefs</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Kokoserde Deutschland -->
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website Kokoserde Deutschland" 
+               data-image="image/kokoserde-deutschland-big.png" 
+               data-url="https://kokoserdedeutschland.com" 
+               data-github="">
+            
+            <p>Development of the “Kokoserde Deutschland” website, built using the WordPress CMS and Divi Theme Builder. This website was specifically designed to market high-quality coconut-based products to consumers in the German market, including cocopeat blocks, coconut coir pots, coconut coir shade netting, coco-husk, copra, and coconut oil.</p>
+            
+            <p>Technical development focuses on:</p>
+            <ul>
+              <li><strong>Layout & Troubleshooting:</strong> Planning and building the visual layout design from scratch to ensure it is 100% responsive across various devices.</li>
+              <li><strong>Live Chat Feature:</strong> Integrating the WP Chat App plugin to connect international customers directly to the marketing team via WhatsApp.</li>
+              <li><strong>SEO Optimization:</strong> Performing technical configurations using the RankMath plugin and its extensions to improve Search Engine Optimization (SEO) and organically reach the target audience in Germany.</li>
+              <li><strong>Content Management:</strong> Crafting informative copy and designing the layout of product visuals to appear professional and trustworthy to the European market.</li>
+            </ul>
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
+          <div class="card-image-box">
+            <img src="image/kokoserde-deutschland.png" alt="Sport-On" onerror="this.src='https://kokoserdedeutschland.com'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Kokoserde Deutschland</h4>
+            <p class="card-subtitle">Coconut-based Products Website</p>
+            <div class="card-tags">
+              <span class="mini-tag">WordPress</span>
+              <span class="mini-tag">CSS</span>
+              <span class="mini-tag">Web Design</span>
+              <span class="mini-tag">SEO</span>
+              <span class="mini-tag">WP App</span>
+              <span class="mini-tag">RankMath</span>
+              <span class="mini-tag">Copy Writing</span>
+              <span class="mini-tag">Canva</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buy Property in Bali -->
+        <div class="grid-card" onclick="showProjectDetails(this)">
+          
+          <!-- DATA KHUSUS MODAL POPUP (SEMBUNYI DI TAMPILAN UTAMA) -->
+          <div class="project-data" style="display: none;"
+               data-title="Website Buy Property in Bali" 
+               data-image="image/buy-property-in-bali-big.png" 
+               data-url="https://buypropertyinbali.com.au" 
+               data-github="">
+            
+            <p>Development of the “Buy Property in Bali” website, built using the WordPress CMS and Divi Theme Builder. This website serves as an interactive property catalog platform specifically for the sale and rental of luxury villas, targeting primarily investors and tourists in the Bali region.</p>
+            
+            <p>Technical development focuses on:</p>
+            <ul>
+              <li><strong>Layout & Troubleshooting:</strong> Planning and building the visual layout design from scratch to ensure it is 100% responsive across various devices, making it easy for prospective buyers to browse the villa gallery via smartphone or desktop.</li>
+              <li><strong>Live Chat Feature:</strong> Integrating the WP Chat App plugin to instantly connect prospective renters or property buyers to the marketing teams WhatsApp.</li>
+              <li><strong>SEO Optimization:</strong> Performing technical configurations using the RankMath plugin and its extensions to improve Search Engine Optimization (SEO) and win the competition for property and villa keywords in Bali on Google.</li>
+              <li><strong>Content Management:</strong> Crafting persuasive copy and managing the presentation of visual property assets to make them look elegant, exclusive, and appealing to consumers.</li>
+            </ul>
+          </div>
+
+          <!-- TAMPILAN KARTU UTAMA -->
+          <div class="card-image-box">
+            <img src="image/buy-property-in-bali.png" alt="Sport-On" onerror="this.src='https://buypropertyinbali.com.au'">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Buy Property in Bali</h4>
+            <p class="card-subtitle">Selling and Renting Villas Website</p>
+            <div class="card-tags">
+              <span class="mini-tag">WordPress</span>
+              <span class="mini-tag">CSS</span>
+              <span class="mini-tag">Web Design</span>
               <span class="mini-tag">SEO</span>
               <span class="mini-tag">WP App</span>
               <span class="mini-tag">RankMath</span>
@@ -485,6 +608,7 @@
               <span class="mini-tag">RankMath</span>
               <span class="mini-tag">Copy Writing</span>
               <span class="mini-tag">Canva</span>
+              <span class="mini-tag">Ahr</span>
             </div>
           </div>
         </div>
